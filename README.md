@@ -20,3 +20,5 @@ npm run start
   open your browser and type ```http://localhost:5009```
 
 ### Make sure you already have mongoDB installed and running on your computer !
+
+[demo !](https://simple-realtime-chat-react.herokuapp.com/)
