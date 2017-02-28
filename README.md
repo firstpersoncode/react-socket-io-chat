@@ -1,4 +1,4 @@
-# simple-realtime-chat-react
+# Simple Realtime Chat App
 
 ### Simple real time chat app using react.js + express.js + socket.io + MongoDB
 
