@@ -11,6 +11,9 @@ import React from 'react';
 class ChatContainer extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor() {
     super();
+    this.state = {
+      loading: false,
+    };
   }
 
   componentDidMount() {
@@ -29,21 +32,18 @@ class ChatContainer extends React.Component { // eslint-disable-line react/prefe
 
     // load history chat when scroll to top
     if (this.state.scroll === 0) {
+      this.setState({ loading: true });
+      this.props.loadHistory();
       setTimeout(() => {
-        this.props.loadHistory()
-      }, 300)
+        this.setState({ loading: false });
+      }, 2000)
     }
   }
 
   render() {
-    const style = {
-      'height':'300px',
-      'overflowY':'scroll',
-      'padding':'10px',
-    }
-
     return (
-      <div style={style} id="chat-container">
+      <div id="chat-container" class={this.state.loading ? "loading" : ""}>
+        <div class="loading-effect"> load previous chat .. </div>
         { this.props.mapChat }
         <hr />
       </div>

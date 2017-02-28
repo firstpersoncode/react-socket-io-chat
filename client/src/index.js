@@ -24,6 +24,9 @@ const socket = io.connect('http://localhost:5009');
 export class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor() {
     super();
+    this.state = {
+      status: "",
+    };
     this.newChat = this.newChat.bind(this);
     this.login = this.login.bind(this);
     this.loadHistory = this.loadHistory.bind(this);
@@ -39,7 +42,10 @@ export class App extends React.Component { // eslint-disable-line react/prefer-s
   login(e) {
     const auth = document.getElementById('authbox');
     e.preventDefault();
+
     // trigger authentication on socket and send data to server
+    this.setState({ status: "server error" })
+
     socket.emit('authentication', auth.value, (data) => {
       const that = this;
       if (data) { // validate response from server
@@ -51,8 +57,17 @@ export class App extends React.Component { // eslint-disable-line react/prefer-s
           //   elem.scrollTop = elem.scrollHeight;
           // }, 50);
         }));
+      } else {
+        this.setState({
+          status: "Username is taken"
+        });
       }
     });
+    setTimeout(() => {
+      this.setState({
+        status: ""
+      });
+    }, 1000)
     auth.value = '';
   }
 
@@ -99,13 +114,16 @@ export class App extends React.Component { // eslint-disable-line react/prefer-s
           {/* <button onClick={this.loadHistory}>load chat</button> */}
           <ChatContainer mapChat={mapChat} loadHistory={this.loadHistory.bind(this)} />
           <ChatBox newChat={this.newChat} />
-          <ul>{mapUser}</ul>
+          <ul id="users">{mapUser}</ul>
         </div>
       );
     } else {
       // logged out
       return (
-        <Login login={this.login} />
+        <div>
+          <p>{this.state.status}</p>
+          <Login login={this.login} />
+        </div>
       );
     } // end login status conditional
   }// end render

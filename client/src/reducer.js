@@ -14,6 +14,7 @@ const initialState = {
   chat: [],
   user: [],
   login: false,
+  loading: false,
 };
 
 

@@ -1,6 +1,8 @@
+import path from 'path';
 import 'babel-polyfill';
 require('file-loader?name=index.html!./index.html');
-// require('file-loader?name=socket/index.js!./socket/index.js');
+require('file-loader?name=socket.js!./socket.js');
+require('./style.scss');
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';

@@ -1,10 +1,14 @@
 const express = require('express');
 const app = express();
-var server = require('http').createServer(app);
-var io = require('socket.io').listen(server);
-var path = require('path');
+const server = require('http').createServer(app);
+const io = require('socket.io').listen(server);
+const path = require('path');
 const mongoose = require('mongoose');
 
+app.use(express.static(path.resolve(__dirname, '../dist')));
+app.get('/', (req, res) => {
+  res.render('/dist/index.html');
+});
 server.listen(process.env.PORT || 5009);
 
 // connect database
@@ -28,16 +32,17 @@ var login = {};
 
 
 io.sockets.on('connection', (socket) => {
-
   // load chat history from database
   let page = 0;
-  const limit = 30;
+  const limit = 10;
   socket.on('fetch history', (res) => {
     var historyChat = Chat.find({});
 
     historyChat.sort('-stamp').skip(page * limit).limit(limit).exec((err, docs) => {
       if(err) throw err;
-      res(docs);
+      setTimeout(() => {
+        res({docs, length: docs.length});
+      }, 2000);
     });
     page = (page + 1);
   });
@@ -65,6 +70,7 @@ io.sockets.on('connection', (socket) => {
       cb(true);
       updateLogin();
     }
+
   });
 
   // new chat
@@ -72,7 +78,7 @@ io.sockets.on('connection', (socket) => {
     // insert new chat into database
     var newMsg = new Chat({
       txt: data,
-      name: socket.user
+      name: socket.user,
     });
     newMsg.save()
     .then((newMsg) => {

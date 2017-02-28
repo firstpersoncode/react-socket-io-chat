@@ -12,9 +12,11 @@ class ChatText extends React.Component { // eslint-disable-line react/prefer-sta
   render() {
     return (
       <div className="chat" key={this.props.keys}>
-        <span className="name">${this.props.name}</span>:
-        <span className="txt"> {this.props.txt}</span>
-        <span className="stamp"> {this.props.stamp}</span>
+      <span className="name">{this.props.name}</span>
+        <div>
+          <span className="txt">{this.props.txt}</span>
+        </div>
+        <span className="stamp">{this.props.stamp}</span>
       </div>
     );
   }

@@ -9,13 +9,13 @@ module.exports = {
 	},
 	devServer: {
 		inline: true,
-		port: 8080
+		port: 7009
 	},
 	module: {
 		loaders: [
 			{
 				test: /\.js$/,
-				exclude: /node_modules/,
+				exclude: /node_modules|socket.js/,
 				loader: 'babel-loader',
 				query: {
 					presets: ['es2015', 'react', 'stage-0'],

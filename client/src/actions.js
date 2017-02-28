@@ -37,12 +37,13 @@
      payload,
    };
  }
+
  export function historyChat() {
    return (dispatch) => {
      socket.emit('fetch history', (data) => {
        // add line break
-       data.push('<hr />');
-       dispatch(historyChatResult(data.concat().reverse()));
+       if (data.length > 1) data.docs.push('<hr />');
+       dispatch(historyChatResult(data.docs.concat().reverse()));
      });
    };
  }
