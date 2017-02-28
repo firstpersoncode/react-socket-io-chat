@@ -30,6 +30,11 @@ var Chat = mongoose.model('Message', chatSchema);
 // var user = [];
 var login = {};
 
+io.configure(() => {
+  io.set("transports", ["xhr-polling"]);
+  io.set("polling duration", 10);
+});
+
 
 io.sockets.on('connection', (socket) => {
   // load chat history from database
