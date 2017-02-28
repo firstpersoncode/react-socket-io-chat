@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
 server.listen(process.env.PORT || 5009);
 
 // connect database
-mongoose.connect('mongodb://localhost/nj', (err) => {
+mongoose.connect('mongodb://ds145019.mlab.com:45019/realtimechat', (err) => {
   if(err) {
     console.log(err)
   }else {
