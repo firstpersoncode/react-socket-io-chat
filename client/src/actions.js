@@ -11,7 +11,7 @@
  } from './constants';
 
  // import io from './socket';
-const socket = io.connect(window.location.hostname);
+ const socket = io.connect('http://localhost:5009');
 
 
 // fetch chat actions

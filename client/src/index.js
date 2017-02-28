@@ -19,7 +19,7 @@ import Login from './Login';
 
 // socket
 // import io from './socket';
-const socket = io.connect(window.location.hostname);
+const socket = io.connect('http://localhost:5009');
 
 export class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor() {

@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
 server.listen(process.env.PORT || 5009);
 
 // connect database
-mongoose.connect('mongodb://ds145019.mlab.com:45019/realtimechat', (err) => {
+mongoose.connect('mongodb://localhost/nj', (err) => {
   if(err) {
     console.log(err)
   }else {
@@ -29,11 +29,6 @@ var Chat = mongoose.model('Message', chatSchema);
 // initial state
 // var user = [];
 var login = {};
-
-io.configure(() => {
-  io.set("transports", ["xhr-polling"]);
-  io.set("polling duration", 10);
-});
 
 
 io.sockets.on('connection', (socket) => {
