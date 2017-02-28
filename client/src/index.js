@@ -26,6 +26,7 @@ export class App extends React.Component { // eslint-disable-line react/prefer-s
     super();
     this.state = {
       status: "",
+      users: false,
     };
     this.newChat = this.newChat.bind(this);
     this.login = this.login.bind(this);
@@ -89,6 +90,12 @@ export class App extends React.Component { // eslint-disable-line react/prefer-s
     this.props.dispatch(historyChat());
   }
 
+  showUsers() {
+    this.setState({
+      users: !this.state.users,
+    });
+  }
+
   render() {
 
     // login status conditional
@@ -110,11 +117,13 @@ export class App extends React.Component { // eslint-disable-line react/prefer-s
       ));
       // logged in
       return (
-        <div>
-          {/* <button onClick={this.loadHistory}>load chat</button> */}
-          <ChatContainer mapChat={mapChat} loadHistory={this.loadHistory.bind(this)} />
+        <div class={this.state.users ? "show-user" : ""}>
+          <button id="showUsers" onClick={this.showUsers.bind(this)}>Users online</button>
+          <div class="chat-parent">
+            <ChatContainer mapChat={mapChat} loadHistory={this.loadHistory.bind(this)} />
+            <ul id="users">{mapUser}</ul>
+          </div>
           <ChatBox newChat={this.newChat} />
-          <ul id="users">{mapUser}</ul>
         </div>
       );
     } else {
