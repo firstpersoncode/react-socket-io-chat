@@ -11,7 +11,7 @@
  } from './constants';
 
  // import io from './socket';
- const socket = io.connect('http://localhost:5009');
+const socket = io.connect('http://simple-realtime-chat-react.herokuapp.com/');
 
 
 // fetch chat actions
